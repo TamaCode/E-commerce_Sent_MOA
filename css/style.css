@@ -23,6 +23,10 @@ header button:hover {
   transform: scale(1.2);
 }
 
+nav a:hover {
+  color: rgb(19, 145, 92);
+}
+
 header {
   background-image: url("../images/header_background.jpeg");
   background-size: cover;
@@ -148,6 +152,10 @@ footer a {
   text-align: center;
   padding: 5px 0;
   color: black;
+}
+
+footer a:hover {
+  color: rgb(19, 145, 92)
 }
 
 .img_footer_content {
