@@ -7,7 +7,7 @@
 }
 
 /* ESTILO BOTONES */
-button {
+header button {
   color: white;
   /* font-family: 'Lobster', cursive; */
   font-family: 'Courgette', cursive;
@@ -20,7 +20,7 @@ button {
   transition: all 0.5s;
 }
 
-button:hover {
+header button:hover {
   transform: scale(1.2);
 }
 
