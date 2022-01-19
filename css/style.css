@@ -91,6 +91,7 @@ nav ul li a{
 .subtitle_content {
   display: flex;
   flex-direction: column;
+  font-family: 'Courgette', cursive;
   text-align: center;
   margin-bottom: 70px;
 }
@@ -111,6 +112,7 @@ footer {
   background-image: url('../images/header_background.jpeg');
   background-size: cover;
   background-position: top;
+  font-family: 'Courgette', cursive;
   padding: 40px;
   margin-top: 50px;
   width: 100%;
