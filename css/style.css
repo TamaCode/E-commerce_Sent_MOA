@@ -138,6 +138,10 @@ footer {
   padding: 0px 40px;
 }
 
+.footer_col h5 {
+  font-weight: bolder;
+}
+
 footer a {
   text-decoration: none;
   text-align: center;
