@@ -1,0 +1,117 @@
+@import url('https://fonts.googleapis.com/css2?family=Courgette&family=Dongle&family=Lobster&display=swap');
+
+/* Reseto estilos predeterminados de HTML5 */
+* {
+  padding: 0;
+  margin: 0;
+}
+
+/* ESTILO BOTONES */
+button {
+  color: white;
+  /* font-family: 'Lobster', cursive; */
+  font-family: 'Courgette', cursive;
+  font-size: 30px;
+  background-color: rgb(19, 145, 92);
+  border: 1px solid rgb(19, 145, 92);
+  border-radius: 30px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+button:hover {
+  transform: scale(1.2);
+}
+
+header {
+  background-image: url("../images/header_background.jpeg");
+  background-size: cover;
+  background-position: bottom;
+  margin-bottom: 100px;
+  width: 100%;
+  height: 100%;
+}
+
+#header_content {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* border: 1px solid red; */
+  padding: 180px 0px;
+}
+
+header img {
+  width: 400px;
+  height: 400px;
+}
+
+#img_content {
+  height: fit-content;
+  width: fit-content;
+  margin-left: 50px;
+  /* border: 1px solid red; */
+}
+
+#header_text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-family: 'Courgette', cursive;
+  text-align: center;
+  margin-right: 50px;
+  width: 30%;
+  /* border: 1px solid red; */
+  
+}
+
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  /* border: 1px solid blue; */
+  height: fit-content;
+  padding: 0px;
+}
+
+nav ul {
+  display: flex;
+  flex-direction: row;
+  list-style: none;
+  justify-content: space-evenly;
+  margin-bottom: 0px;
+  /* border: 1px solid black; */
+  width: 50%;
+}
+
+nav ul li {
+  font-family: 'Lobster', cursive;
+  font-size: 30px;
+  padding: 10px;
+  /* border: 1px greenyellow solid;  */
+}
+
+nav ul li a{
+  text-decoration: none;
+  color: black;
+}
+
+.subtitle_content {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin-bottom: 70px;
+}
+
+.subtitle_image img {
+  width: 100px;
+  height: 100px;
+}
+
+.products_content_row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding: 20px 0px;
+  /* border: 1px solid black; */
+}
