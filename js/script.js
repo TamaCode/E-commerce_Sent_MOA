@@ -35,14 +35,14 @@ const getProducts = () => {
   const products = new Array();
 
   // IMPORTANTE: Los códigos de los productos se deben corresponder con el orden en el que aparecen en el DOM
-  products.push(new Product('1', 'Shampoo Sólido', 750));
-  products.push(new Product('6', 'Acondicionador Sólido', 850));
-  products.push(new Product('3', 'Balsamo Labial', 330));
-  products.push(new Product('4', 'Jabón Corporal', 350));
-  products.push(new Product('2', 'Desodorante Natural', 500));
-  products.push(new Product('5', 'Pasta Dental', 700));
-  products.push(new Product('7', 'Jabonera de Madera', 400));
-  products.push(new Product('8', 'Bálsamo Mentolado', 300));
+  products.push(new Product('0', 'Shampoo Sólido', 750));
+  products.push(new Product('5', 'Acondicionador Sólido', 850));
+  products.push(new Product('2', 'Balsamo Labial', 330));
+  products.push(new Product('3', 'Jabón Corporal', 350));
+  products.push(new Product('1', 'Desodorante Natural', 500));
+  products.push(new Product('4', 'Pasta Dental', 700));
+  products.push(new Product('6', 'Jabonera de Madera', 400));
+  products.push(new Product('7', 'Bálsamo Mentolado', 300));
 
   calculateProductIvaAmounts(products);
 
@@ -152,7 +152,7 @@ const showTotalNetAmount = (totalGrossAmount, totalIvaAmount) => {
 };
 
 const setProductPricesInDOM = (products) => {
-  let index = 1;
+  let index = 0;
   const priceFields = document.getElementsByClassName('price_text');
 
   for(priceField of priceFields) {
@@ -162,9 +162,18 @@ const setProductPricesInDOM = (products) => {
   }
 };
 
+const setProductQuantitiesInDOM = (products, userInputs) => {
+  const quantityFields = document.getElementsByClassName('quantity_field');
+
+  for(userInput of userInputs) {
+    const index = userInput.code;
+    quantityFields[index].value = userInput.quantity;
+  }
+};
+
 const setValuesInDOM = (products, userInputs) => {
   setProductPricesInDOM(products);
-  // setProductQuantitiesInDOM();
+  setProductQuantitiesInDOM(products, userInputs);
   // setProductSubtotalsInDOM();
 }
 
