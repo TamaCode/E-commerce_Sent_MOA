@@ -18,15 +18,15 @@ const calculateProductIvaAmounts = (products) => {
 };
 
 // ORDENO ARRAY DE PRODUCTOS TENIENDO EN CUENTA EL PRECIO DE LOS MISMOS
-const sortProductArrayByPrice = (sortType, products) => {
+const sortProductArrayByCode = (sortType, products) => {
   while(sortType != 'ASCENDENTE' && sortType != 'DESCENDENTE') {
     sortType = prompt(`Ordenamiento inválido. Por favor, escriba ASCENDENTE o DESCENDENTE según corresponda.`).toUpperCase();
   }
 
   if(sortType === 'ASCENDENTE') {
-    products.sort((productA, productB) => productA.price - productB.price);
+    products.sort((productA, productB) => productA.code - productB.code);
   } else if (sortType === 'DESCENDENTE'){
-    products.sort((productA, productB) => productB.price - productA.price);
+    products.sort((productA, productB) => productB.code - productA.code);
   }
 };
 
@@ -34,15 +34,19 @@ const sortProductArrayByPrice = (sortType, products) => {
 const getProducts = () => {
   const products = new Array();
 
-  products.push(new Product('3', 'Shampoo Sólido', 750));
-  products.push(new Product('4', 'Acondicionador Sólido', 850));
-  products.push(new Product('1', 'Balsamo Labial', 330));
-  products.push(new Product('2', 'Jabón Corporal', 350));
+  products.push(new Product('1', 'Shampoo Sólido', 750));
+  products.push(new Product('2', 'Acondicionador Sólido', 850));
+  products.push(new Product('3', 'Balsamo Labial', 330));
+  products.push(new Product('4', 'Jabón Corporal', 350));
+  products.push(new Product('5', 'Desodorante Natural', 500));
+  products.push(new Product('6', 'Pasta Dental', 700));
+  products.push(new Product('7', 'Jabonera de Madera', 400));
+  products.push(new Product('8', 'Bálsamo Mentolado', 300));
 
   calculateProductIvaAmounts(products);
 
   const sortType = prompt(`De que forma desea ordenar la lista de precios de productos? Escriba ASCENDENTE o DESCENDENTE según corresponda.`).toUpperCase();
-  sortProductArrayByPrice(sortType, products);
+  sortProductArrayByCode(sortType, products);
 
   return products;
 };
