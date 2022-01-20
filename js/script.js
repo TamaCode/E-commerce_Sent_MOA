@@ -162,29 +162,37 @@ const setProductPricesInDOM = (products) => {
   }
 };
 
-const setProductQuantitiesInDOM = (products, userInputs) => {
+const setProductQuantitiesInDOM = (userInputs) => {
   const quantityFields = document.getElementsByClassName('quantity_field');
+  let currentProductCode = 0;
 
-  for(userInput of userInputs) {
-    const index = userInput.code;
-    quantityFields[index].value = userInput.quantity;
+  for(quantityField of quantityFields) {
+    let totalQuantity = 0;
+    const userInputsByCode = userInputs.filter((userInput) => parseInt(userInput.code) === currentProductCode);
+    userInputsByCode.forEach(userInput => totalQuantity += parseInt(userInput.quantity));
+    quantityField.value = totalQuantity;
+    currentProductCode++;
   }
 };
 
 const setProductSubtotalsInDOM = (products, userInputs) => {
   const subtotalFields = document.getElementsByClassName('subtotal_field');
+  let currentProductCode = 0;
 
-  for(userInput of userInputs) {
-    const product = products.find((product) => product.code === userInput.code);
-    const index = userInput.code;
-    subtotalFields[index].innerText = `Subtotal: $${product.price * userInput.quantity}`;
+  for(subtotalField of subtotalFields) {
+    let subtotalAmount = 0;
+    const productPrice = products.find(product => parseInt(product.code) === currentProductCode).price;
+    const userInputsByCode = userInputs.filter((userInput) => parseInt(userInput.code) === currentProductCode);
+    userInputsByCode.forEach((userInput) => subtotalAmount += parseInt(userInput.quantity) * productPrice);
+    subtotalField.innerText = `Subtotal: $${subtotalAmount}`;
+    currentProductCode++;
   }
 };
 
 // SETEO VALORES EN EL DOM
 const setValuesInDOM = (products, userInputs) => {
   setProductPricesInDOM(products);
-  setProductQuantitiesInDOM(products, userInputs);
+  setProductQuantitiesInDOM(userInputs);
   setProductSubtotalsInDOM(products, userInputs);
 }
 
