@@ -17,19 +17,6 @@ const calculateProductIvaAmounts = (products) => {
   }
 };
 
-// ORDENO ARRAY DE PRODUCTOS TENIENDO EN CUENTA EL PRECIO DE LOS MISMOS
-const sortProductArrayByCode = (sortType, products) => {
-  while(sortType != 'ASCENDENTE' && sortType != 'DESCENDENTE') {
-    sortType = prompt(`Ordenamiento inválido. Por favor, escriba ASCENDENTE o DESCENDENTE según corresponda.`).toUpperCase();
-  }
-
-  if(sortType === 'ASCENDENTE') {
-    products.sort((productA, productB) => productA.code - productB.code);
-  } else if (sortType === 'DESCENDENTE'){
-    products.sort((productA, productB) => productB.code - productA.code);
-  }
-};
-
 // CREO LOS OBJETOS PRODUCTOS DISPONIBLES PARA LA VENTA
 const getProducts = () => {
   const products = new Array();
@@ -44,10 +31,8 @@ const getProducts = () => {
   products.push(new Product('6', 'Jabonera de Madera', 400));
   products.push(new Product('7', 'Bálsamo Mentolado', 300));
 
+  products.sort((productA, productB) => productA.code - productB.code); // ORDENO ARRAY DE PRODUCTOS SEGÚN EL CÓDIGO DE LOS MISMOS
   calculateProductIvaAmounts(products);
-
-  const sortType = prompt(`De que forma desea ordenar la lista de precios de productos? Escriba ASCENDENTE o DESCENDENTE según corresponda.`).toUpperCase();
-  sortProductArrayByCode(sortType, products);
 
   return products;
 };
