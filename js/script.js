@@ -97,7 +97,7 @@ const showProductList = (products) => {
   const userInput = {};
   const productList = getProductList(products);
 
-  userInput.code = prompt(`Ingrese el código del producto que desea agregar a su Carrito de Compras. Al finalizar presione la tecla ESC para calcular el importe total de su Compra.\n\n${productList}`);
+  userInput.code = prompt(`Ingrese el código del producto que desea agregar a su Carrito de Compras. Al finalizar presione la tecla ESC para calcular el importe total de su Compra y que la misma se refleje en la Página.\n\n${productList}`);
 
   if (userInput.code != null) {
     isCodeValid(userInput, products);
@@ -153,7 +153,7 @@ const showTotalNetAmount = (totalGrossAmount, totalIvaAmount) => {
 
 const setProductPricesInDOM = (products) => {
   let index = 0;
-  const priceFields = document.getElementsByClassName('price_text');
+  const priceFields = document.getElementsByClassName('price_field');
 
   for(priceField of priceFields) {
     const product = products.find((product) => parseInt(product.code) === index);
@@ -171,10 +171,21 @@ const setProductQuantitiesInDOM = (products, userInputs) => {
   }
 };
 
+const setProductSubtotalsInDOM = (products, userInputs) => {
+  const subtotalFields = document.getElementsByClassName('subtotal_field');
+
+  for(userInput of userInputs) {
+    const product = products.find((product) => product.code === userInput.code);
+    const index = userInput.code;
+    subtotalFields[index].innerText = `Subtotal: $${product.price * userInput.quantity}`;
+  }
+};
+
+// SETEO VALORES EN EL DOM
 const setValuesInDOM = (products, userInputs) => {
   setProductPricesInDOM(products);
   setProductQuantitiesInDOM(products, userInputs);
-  // setProductSubtotalsInDOM();
+  setProductSubtotalsInDOM(products, userInputs);
 }
 
 /************ PROGRAMA PRINCIPAL ************/
