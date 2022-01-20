@@ -34,12 +34,13 @@ const sortProductArrayByCode = (sortType, products) => {
 const getProducts = () => {
   const products = new Array();
 
+  // IMPORTANTE: Los códigos de los productos se deben corresponder con el orden en el que aparecen en el DOM
   products.push(new Product('1', 'Shampoo Sólido', 750));
-  products.push(new Product('2', 'Acondicionador Sólido', 850));
+  products.push(new Product('6', 'Acondicionador Sólido', 850));
   products.push(new Product('3', 'Balsamo Labial', 330));
   products.push(new Product('4', 'Jabón Corporal', 350));
-  products.push(new Product('5', 'Desodorante Natural', 500));
-  products.push(new Product('6', 'Pasta Dental', 700));
+  products.push(new Product('2', 'Desodorante Natural', 500));
+  products.push(new Product('5', 'Pasta Dental', 700));
   products.push(new Product('7', 'Jabonera de Madera', 400));
   products.push(new Product('8', 'Bálsamo Mentolado', 300));
 
@@ -150,9 +151,29 @@ const showTotalNetAmount = (totalGrossAmount, totalIvaAmount) => {
   alert(`El importe de tu compra es: \n$${totalGrossAmount} (BRUTO) + $${totalIvaAmount} (IVA) = $${totalGrossAmount + totalIvaAmount} (TOTAL)`);
 };
 
+const setProductPricesInDOM = (products) => {
+  let index = 1;
+  const priceFields = document.getElementsByClassName('price_text');
+
+  for(priceField of priceFields) {
+    const product = products.find((product) => parseInt(product.code) === index);
+    priceField.innerText = `Precio Unitario: $${product.price}`;
+    index++;
+  }
+};
+
+const setValuesInDOM = (products, userInputs) => {
+  setProductPricesInDOM(products);
+  // setProductQuantitiesInDOM();
+  // setProductSubtotalsInDOM();
+}
+
 /************ PROGRAMA PRINCIPAL ************/
 const products = getProducts();
 const userInputs = getUserInputs(products);
 const totalGrossAmount = calculateTotalGrossAmount(userInputs, products);
 const totalIvaAmount = calculateTotalIvaAmount(userInputs, products);
 showTotalNetAmount(totalGrossAmount, totalIvaAmount);
+
+// SETEO VALORES EN EL DOM
+setValuesInDOM(products, userInputs);
