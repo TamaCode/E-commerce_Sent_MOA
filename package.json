@@ -1,0 +1,26 @@
+{
+  "name": "html-e-commerce",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "sass": "^1.49.0"
+  },
+  "devDependencies": {
+    "node-sass": "^7.0.1",
+    "nodemon": "^2.0.15"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TamaCode/E-commerce_Sent_MOA.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TamaCode/E-commerce_Sent_MOA/issues"
+  },
+  "homepage": "https://github.com/TamaCode/E-commerce_Sent_MOA#readme"
+}
