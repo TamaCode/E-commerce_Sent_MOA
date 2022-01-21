@@ -132,8 +132,8 @@ const calculateTotalIvaAmount = (userInputs, products) => {
 };
 
 // MUESTRO EN PANTALLA EL IMPORTE TOTAL A PAGAR
-const showTotalNetAmount = (totalGrossAmount, totalIvaAmount) => {
-  alert(`El importe de tu compra es: \n$${totalGrossAmount} (BRUTO) + $${totalIvaAmount} (IVA) = $${totalGrossAmount + totalIvaAmount} (TOTAL)`);
+const showTotalNetAmount = (totalGrossAmount, totalIvaAmount, sendCost) => {
+  alert(`El importe de tu compra es: \n$${totalGrossAmount} (BRUTO) + $${totalIvaAmount} (IVA) + $${sendCost} (ENVÍO) = $${totalGrossAmount + totalIvaAmount + sendCost} (TOTAL)`);
 };
 
 const setProductPricesInDOM = (products) => {
@@ -174,11 +174,24 @@ const setProductSubtotalsInDOM = (products, userInputs) => {
   }
 };
 
+const setInvoicingAmounts = (totalGrossAmount, totalIvaAmount, sendCost) => {
+  const subtotalAmountField = document.getElementsByClassName('subtotal_amount_field')[0];
+  const taxAmountField = document.getElementsByClassName('tax_field')[0];
+  const sendAmountField = document.getElementsByClassName('send_field')[0];
+  const totalAmountField = document.getElementsByClassName('total_field')[0];
+
+  subtotalAmountField.innerHTML = `$${totalGrossAmount}`;
+  taxAmountField.innerHTML = `$${totalIvaAmount}`;
+  sendAmountField.innerHTML = `$${sendCost}`;
+  totalAmountField.innerHTML = `$${totalGrossAmount + totalIvaAmount + sendCost}`;
+};
+
 // SETEO VALORES EN EL DOM
-const setValuesInDOM = (products, userInputs) => {
+const setValuesInDOM = (products, userInputs, totalGrossAmount, totalIvaAmount, sendCost) => {
   setProductPricesInDOM(products);
   setProductQuantitiesInDOM(userInputs);
   setProductSubtotalsInDOM(products, userInputs);
+  setInvoicingAmounts(totalGrossAmount, totalIvaAmount, sendCost);
 }
 
 /************ PROGRAMA PRINCIPAL ************/
@@ -186,7 +199,8 @@ const products = getProducts();
 const userInputs = getUserInputs(products);
 const totalGrossAmount = calculateTotalGrossAmount(userInputs, products);
 const totalIvaAmount = calculateTotalIvaAmount(userInputs, products);
-showTotalNetAmount(totalGrossAmount, totalIvaAmount);
+const sendCost = 1000; // HARDCODEO PROVISORIAMENTE EL COSTO DE ENVIO
+showTotalNetAmount(totalGrossAmount, totalIvaAmount, sendCost);
 
 // SETEO VALORES EN EL DOM
-setValuesInDOM(products, userInputs);
+setValuesInDOM(products, userInputs, totalGrossAmount, totalIvaAmount, sendCost);
