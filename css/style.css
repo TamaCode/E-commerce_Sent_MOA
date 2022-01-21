@@ -158,6 +158,27 @@ nav ul li a{
   border-bottom: 2.5px dashed black;
 }
 
+.payment_button {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  margin-top: 50px;
+}
+.amounts_content button {
+  color: white;
+  font-family: 'Courgette', cursive;
+  font-size: 23px;
+  background-color: rgb(19, 145, 92);
+  border: 1px solid rgb(19, 145, 92);
+  border-radius: 30px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.amounts_content button:hover {
+  transform: scale(1.2);
+}
 
 /* ESTILOS DE FOOTER */
 footer {
