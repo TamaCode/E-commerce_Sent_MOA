@@ -1,3 +1,12 @@
+%content-attributes {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: 'Courgette', cursive;
+  font-size: 23px;
+  margin-bottom: 20px;
+}
+
 .invoice {
   display: flex;
   flex-direction: column;
@@ -32,30 +41,15 @@
       padding: 50px 50px;
 
       .subtotal_content {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        font-family: 'Courgette', cursive;
-        font-size: 23px;
-        margin-bottom: 20px;
+        @extend %content-attributes;
       }
 
       .tax_content {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        font-family: 'Courgette', cursive;
-        font-size: 23px;
-        margin-bottom: 20px;
+        @extend %content-attributes;
       }
 
       .send_content {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        font-family: 'Courgette', cursive;
-        font-size: 23px;
-        margin-bottom: 20px;
+        @extend %content-attributes;
         border-bottom: 2.5px dashed black;
       }
 

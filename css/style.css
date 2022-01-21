@@ -137,6 +137,15 @@ footer .copyright-content .registered_text {
   padding-bottom: 40px;
 }
 
+.invoice .amounts_content .amounts_content_2 .send_content, .invoice .amounts_content .amounts_content_2 .tax_content, .invoice .amounts_content .amounts_content_2 .subtotal_content {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-family: "Courgette", cursive;
+  font-size: 23px;
+  margin-bottom: 20px;
+}
+
 .invoice {
   display: flex;
   flex-direction: column;
@@ -168,29 +177,7 @@ footer .copyright-content .registered_text {
   width: 40%;
   padding: 50px 50px;
 }
-.invoice .amounts_content .amounts_content_2 .subtotal_content {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-family: "Courgette", cursive;
-  font-size: 23px;
-  margin-bottom: 20px;
-}
-.invoice .amounts_content .amounts_content_2 .tax_content {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-family: "Courgette", cursive;
-  font-size: 23px;
-  margin-bottom: 20px;
-}
 .invoice .amounts_content .amounts_content_2 .send_content {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-family: "Courgette", cursive;
-  font-size: 23px;
-  margin-bottom: 20px;
   border-bottom: 2.5px dashed black;
 }
 .invoice .amounts_content .amounts_content_2 .total_content {
