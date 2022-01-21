@@ -135,6 +135,64 @@ footer .copyright-content .registered_text {
   justify-content: space-around;
   padding-top: 20px;
   padding-bottom: 40px;
+  font-family: "Courgette", cursive;
+  font-weight: lighter;
+}
+.products_content_row .card-title {
+  font-size: 23px;
+  color: #13915c;
+}
+.products_content_row .price_field {
+  font-weight: bold;
+  font-size: 25px;
+}
+.products_content_row .subtotal_field {
+  font-weight: bold;
+  font-size: 20px;
+}
+.products_content_row .add_cart_button {
+  --color: rgb(19, 145, 92);
+  background-color: white;
+  font-family: inherit;
+  display: inline-block;
+  width: 9em;
+  height: 2.6em;
+  line-height: 2.5em;
+  margin: 20px;
+  position: relative;
+  overflow: hidden;
+  border: 2px solid var(--color);
+  transition: color 0.5s;
+  z-index: 1;
+  font-size: 17px;
+  border-radius: 6px;
+  font-weight: 500;
+  color: var(--color);
+}
+.products_content_row .add_cart_button:before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  background: var(--color);
+  height: 150px;
+  width: 200px;
+  border-radius: 50%;
+}
+.products_content_row .add_cart_button:hover {
+  color: #fff;
+}
+.products_content_row .add_cart_button:before {
+  top: 100%;
+  left: 100%;
+  transition: all 0.5s;
+}
+.products_content_row .add_cart_button:hover:before {
+  top: -30px;
+  left: -30px;
+}
+.products_content_row .add_cart_button:active:before {
+  background: #3a0ca3;
+  transition: background 0s;
 }
 
 .invoice .amounts_content .amounts_content_2 .send_content, .invoice .amounts_content .amounts_content_2 .tax_content, .invoice .amounts_content .amounts_content_2 .subtotal_content {
