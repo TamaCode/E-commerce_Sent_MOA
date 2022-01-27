@@ -196,13 +196,27 @@ const updateSubtotal = (quantityInputElement) => {
 const updateQuantity = (operation, quantityInputElement) => {
   let quantityValue = parseInt(quantityInputElement.value);
 
-  if (operation === 'sum') {
+  if (operation === 'add') {
     quantityValue++;
   } else {
     quantityValue > 0 ? quantityValue-- : null;
   }
 
   quantityInputElement.value = quantityValue;
+};
+
+
+const validateQtyInputValue = (quantityInputElement) => {
+  let quantityValue = quantityInputElement.value;
+
+  if (!quantityValue) {
+    quantityInputElement.value = 0;
+  }
+
+  if (isNaN(quantityValue) || quantityValue < 0) {
+    alert('La cantidad a comprar debe ser un número positivo');
+    quantityInputElement.value = 0;
+  }
 };
 
 
@@ -213,7 +227,7 @@ const setQuantityButtonsEventListener = () => {
   for(addButtonElement of addButtonElements) {
     addButtonElement.addEventListener('click', (event) => {
       const quantityInputElement = event.target.parentNode.childNodes[1];
-      updateQuantity('sum', quantityInputElement);
+      updateQuantity('add', quantityInputElement);
       updateSubtotal(quantityInputElement);
     });
   }
@@ -261,6 +275,7 @@ const setQuantityInputEventListener = () => {
   for(qtyInputElement of qtyInputElements) {
     qtyInputElement.addEventListener('change', (event) => {
       const quantityInputElement = event.target;
+      validateQtyInputValue(quantityInputElement);
       updateSubtotal(quantityInputElement);
     });
   }
