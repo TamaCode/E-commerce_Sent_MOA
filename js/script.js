@@ -153,7 +153,27 @@ const createRowElement = () => {
 };
 
 
-// CREO DINAMICAMENTE LAS PRODUCT CARDS EN EL DOM
+//LAS CARDS SE CREAN DINAMICAMENTE POR CODIGO. 4 CARDS POR FILA. SE DEJA EJEMPLO DE ESTRUCTURA:
+
+/*
+<div class="products_content_row">
+  <div class="card wow flipInY border-0" data-wow-delay="0.2s" style="width: 18rem;">
+    <img src="images/shampoo.jpeg" class="card-img-top rounded-circle border" alt="...">
+    <div class="card-body text-center border border-top-0">
+      <h5 class="card-title">Shampoo Sólido</h5>
+      <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Sit, ratione.</p>
+      <div class="btn-group mx-5 mb-3" role="group" aria-label="Basic outlined button group">
+        <button type="button" class="btn btn-outline-success">-</button>
+        <input type="text" class="form-control quantity_field" placeholder="0">
+        <button type="button" class="btn btn-outline-success">+</button>
+      </div>
+      <p class="price_field"></p>
+      <p class="subtotal_field">Subtotal: $0</p>
+      <button class="add_cart_button">Agregar al Carrito</button>
+    </div>
+  </div>
+</div> 
+*/
 const createProductCardsInDOM = (products) => {
   let index = 0;
   let rowElement;
@@ -248,10 +268,10 @@ const setInvoicingAmountsInDOM = (totalGrossAmount, totalIvaAmount, sendCost, to
   const sendAmountElement = document.getElementsByClassName('send_field')[0];
   const netAmountElement = document.getElementsByClassName('total_field')[0];
 
-  grossAmountElement.innerHTML = `$${totalGrossAmount}`;
-  ivaAmountElement.innerHTML = `$${totalIvaAmount}`;
-  sendAmountElement.innerHTML = `$${sendCost}`;
-  netAmountElement.innerHTML = `$${totalNetAmount}`;
+  grossAmountElement.innerHTML = `$${totalGrossAmount.toFixed(2)}`;
+  ivaAmountElement.innerHTML = `$${totalIvaAmount.toFixed(2)}`;
+  sendAmountElement.innerHTML = `$${sendCost.toFixed(2)}`;
+  netAmountElement.innerHTML = `$${totalNetAmount.toFixed(2)}`;
 };
 
 
