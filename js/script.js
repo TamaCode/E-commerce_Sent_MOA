@@ -183,20 +183,17 @@ const getPriceValue = (priceElement) => {
 };
 
 
-const updateSubtotal = () => {
-  // El activeElement me devuelve el elemento sobre el cual se clickea
-  const quantityValue = parseInt(document.activeElement.parentNode.childNodes[1].value);
-  const priceElement = document.activeElement.parentNode.parentNode.childNodes[3];
+const updateSubtotal = (quantityInputElement) => {
+  const priceElement = quantityInputElement.parentNode.parentNode.childNodes[3];
+  const subtotalElement = quantityInputElement.parentNode.parentNode.childNodes[4];
+  const quantityValue = parseInt(quantityInputElement.value);
   const priceValue = getPriceValue(priceElement);
-  const subtotalElement = document.activeElement.parentNode.parentNode.childNodes[4];
 
   subtotalElement.innerHTML = `Subtotal: $${quantityValue * priceValue}`;
 };
 
 
-const updateQuantity = (operation) => {
-  // El activeElement me devuelve el elemento sobre el cual se clickea
-  const quantityInputElement = document.activeElement.parentNode.childNodes[1];
+const updateQuantity = (operation, quantityInputElement) => {
   let quantityValue = parseInt(quantityInputElement.value);
 
   if (operation === 'sum') {
@@ -214,16 +211,18 @@ const setQuantityButtonsEventListener = () => {
   const subButtonElements = document.getElementsByClassName('sub-button');
 
   for(addButtonElement of addButtonElements) {
-    addButtonElement.addEventListener('click', () => {
-      updateQuantity('sum');
-      updateSubtotal();
+    addButtonElement.addEventListener('click', (event) => {
+      const quantityInputElement = event.target.parentNode.childNodes[1];
+      updateQuantity('sum', quantityInputElement);
+      updateSubtotal(quantityInputElement);
     });
   }
 
   for(subButtonElement of subButtonElements) {
-    subButtonElement.addEventListener('click', () => {
-      updateQuantity('sub');
-      updateSubtotal();
+    subButtonElement.addEventListener('click', (event) => {
+      const quantityInputElement = event.target.parentNode.childNodes[1];
+      updateQuantity('sub', quantityInputElement);
+      updateSubtotal(quantityInputElement);
     });
   }
 };
@@ -256,9 +255,21 @@ const setCartButtonEventListener = () => {
   }
 };
 
+const setQuantityInputEventListener = () => {
+  const qtyInputElements = document.getElementsByClassName('quantity_field');
+
+  for(qtyInputElement of qtyInputElements) {
+    qtyInputElement.addEventListener('change', (event) => {
+      const quantityInputElement = event.target;
+      updateSubtotal(quantityInputElement);
+    });
+  }
+};
+
 
 const setEventListenerInDOM = () => {
   setQuantityButtonsEventListener();
+  setQuantityInputEventListener();
   setCartButtonEventListener();
 };
 
