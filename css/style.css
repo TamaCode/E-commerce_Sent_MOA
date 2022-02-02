@@ -150,6 +150,9 @@ footer .copyright-content .registered_text {
   font-weight: bold;
   font-size: 20px;
 }
+.products_content_row .product_code {
+  display: none;
+}
 .products_content_row .add_cart_button {
   --color: rgb(19, 145, 92);
   background-color: white;

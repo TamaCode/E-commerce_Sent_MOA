@@ -11,6 +11,9 @@ class Product {
 }
 
 
+const productPurchases = {};
+
+
 // CALCULO LOS MONTOS DE IVA CORRESPONDIENTES A CADA PRODUCTO
 const calculateProductIvaAmounts = (products) => {
   for(const product of products) {
@@ -38,23 +41,13 @@ const getProducts = () => {
   return products;
 };
 
-
-const getSubtotalValue = (subtotalElement) => {
-  const subtotalArray = subtotalElement.innerHTML.split('$');
-  const subtotalValue = subtotalArray[subtotalArray.length - 1];
-
-  return parseFloat(subtotalValue);
-};
-
-
 // CALCULO EL MONTO BRUTO A PAGAR
 const calculateTotalGrossAmount = () => {
   let totalGrossAmount = 0;
-  const subtotalElements = document.getElementsByClassName('subtotal_field');
+  const subtotalValues = JSON.parse(sessionStorage.getItem('productPurchases'));
 
-  for (const subtotalElement of subtotalElements) {
-    const subtotalValue = getSubtotalValue(subtotalElement);
-    totalGrossAmount += subtotalValue;
+  for (const productCode in subtotalValues) {
+    totalGrossAmount += subtotalValues[productCode];
   }
 
   return totalGrossAmount;
@@ -71,7 +64,6 @@ const createQtyButtons = (productCardQty) => {
   const qtyInputElement = document.createElement('input');
   qtyInputElement.setAttribute('type', 'text');
   qtyInputElement.setAttribute('class', 'form-control quantity_field');
-  // qtyInputElement.setAttribute('placeholder', '0');
   qtyInputElement.value = '0';
   productCardQty.appendChild(qtyInputElement);
 
@@ -124,6 +116,11 @@ const setProductCardBody = (productCardElement, product) => {
   productCardSubtotal.setAttribute('class', 'subtotal_field');
   productCardSubtotal.innerHTML = `Subtotal: $${0}`;
   productCardBody.appendChild(productCardSubtotal);
+
+  const productCardCode = document.createElement('p');
+  productCardCode.setAttribute('class', 'product_code');
+  productCardCode.innerHTML = `${product.code}`;
+  productCardBody.appendChild(productCardCode);
 
   const cartButtonElement = document.createElement('button');
   cartButtonElement.setAttribute('class', 'add_cart_button');
@@ -206,10 +203,15 @@ const getPriceValue = (priceElement) => {
 const updateSubtotal = (quantityInputElement) => {
   const priceElement = quantityInputElement.parentNode.parentNode.childNodes[3];
   const subtotalElement = quantityInputElement.parentNode.parentNode.childNodes[4];
+  const productCode = quantityInputElement.parentNode.parentNode.childNodes[5].innerHTML;
   const quantityValue = parseInt(quantityInputElement.value);
   const priceValue = getPriceValue(priceElement);
+  const subtotalValue = quantityValue * priceValue;
 
-  subtotalElement.innerHTML = `Subtotal: $${quantityValue * priceValue}`;
+  productPurchases[productCode] = subtotalValue;
+  sessionStorage.setItem('productPurchases', JSON.stringify(productPurchases));
+  
+  subtotalElement.innerHTML = `Subtotal: $${subtotalValue}`;
 };
 
 
