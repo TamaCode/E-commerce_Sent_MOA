@@ -315,3 +315,4 @@ const products = getProducts();
 createProductCardsInDOM(products);
 setEventListenerInDOM();
 //TODO another feature
+// TODO NEW FEATURE
