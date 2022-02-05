@@ -314,3 +314,4 @@ const setEventListenerInDOM = () => {
 const products = getProducts();
 createProductCardsInDOM(products);
 setEventListenerInDOM();
+//TODO another feature
