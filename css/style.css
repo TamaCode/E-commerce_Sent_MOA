@@ -172,6 +172,27 @@ footer .copyright-content .registered_text {
   font-weight: 500;
   color: var(--color);
 }
+.products_content_row .added_confirmation_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  display: none;
+}
+.products_content_row .added_confirmation_content .added_confirmation_image_content {
+  width: 30%;
+  height: 30%;
+}
+.products_content_row .added_confirmation_content .added_confirmation_image_content .added_confirmation_image {
+  width: 100%;
+  height: 100%;
+}
+.products_content_row .added_confirmation_content .added_confirmation_text {
+  font-size: 18px;
+  color: #13915c;
+  font-weight: bold;
+  margin: 0;
+}
 .products_content_row .add_cart_button:before {
   content: "";
   position: absolute;

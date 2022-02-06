@@ -53,6 +53,26 @@ const calculateTotalGrossAmount = () => {
   return totalGrossAmount;
 };
 
+const createConfirmationContentElement = (currentCartButtonElement) => {
+  const addedConfirmationContentElement = document.createElement('div');
+  addedConfirmationContentElement.setAttribute('class', 'added_confirmation_content');
+  currentCartButtonElement.parentNode.appendChild(addedConfirmationContentElement);
+
+  const addedConfirmationImgContentElement = document.createElement('div');
+  addedConfirmationImgContentElement.setAttribute('class', 'added_confirmation_image_content');
+  addedConfirmationContentElement.appendChild(addedConfirmationImgContentElement);
+
+  const addedConfirmationImageElement = document.createElement('img');
+  addedConfirmationImageElement.setAttribute('class', 'added_confirmation_image');
+  addedConfirmationImageElement.setAttribute('src', 'images/check-mark.png');
+  addedConfirmationImgContentElement.appendChild(addedConfirmationImageElement);
+
+  const addedConfirmationTextElement = document.createElement('p');
+  addedConfirmationTextElement.setAttribute('class', 'added_confirmation_text');
+  addedConfirmationTextElement.innerHTML = 'Producto Agregado!';
+  addedConfirmationContentElement.appendChild(addedConfirmationTextElement);
+};
+
 
 const createQtyButtons = (productCardQty) => {
   const subtractButtonElement = document.createElement('button');
@@ -126,6 +146,8 @@ const setProductCardBody = (productCardElement, product) => {
   cartButtonElement.setAttribute('class', 'add_cart_button');
   cartButtonElement.innerHTML = 'Agregar al Carrito';
   productCardBody.appendChild(cartButtonElement);
+
+  createConfirmationContentElement(cartButtonElement);
 };
 
 
@@ -167,6 +189,12 @@ const createRowElement = () => {
       <p class="price_field"></p>
       <p class="subtotal_field">Subtotal: $0</p>
       <button class="add_cart_button">Agregar al Carrito</button>
+      <div class="added_confirmation_content">
+        <div class="added_confirmation_image_content">
+          <img class="added_confirmation_image" src="images/check-mark.png">
+        </div>
+        <p class="added_confirmation_text">Producto Agregado!</p>
+      </div>
     </div>
   </div>
 </div> 
@@ -249,16 +277,28 @@ const setQuantityButtonsEventListener = () => {
   for(addButtonElement of addButtonElements) {
     addButtonElement.addEventListener('click', (event) => {
       const quantityInputElement = event.target.parentNode.childNodes[1];
+      const addCartButtonElement = event.target.parentNode.parentNode.childNodes[6];
+      const confirmationContentElement = event.target.parentNode.parentNode.childNodes[7];
+
       updateQuantity('add', quantityInputElement);
       updateSubtotal(quantityInputElement);
+
+      addCartButtonElement.setAttribute('style', 'display:inline-block');
+      confirmationContentElement.setAttribute('style', 'display:none');
     });
   }
 
   for(subButtonElement of subButtonElements) {
     subButtonElement.addEventListener('click', (event) => {
       const quantityInputElement = event.target.parentNode.childNodes[1];
+      const addCartButtonElement = event.target.parentNode.parentNode.childNodes[6];
+      const confirmationContentElement = event.target.parentNode.parentNode.childNodes[7];
+
       updateQuantity('sub', quantityInputElement);
       updateSubtotal(quantityInputElement);
+
+      addCartButtonElement.setAttribute('style', 'display:inline-block');
+      confirmationContentElement.setAttribute('style', 'display:none');
     });
   }
 };
@@ -281,15 +321,22 @@ const setCartButtonEventListener = () => {
   const cartButtonElements = document.getElementsByClassName('add_cart_button');
 
   for(cartButtonElement of cartButtonElements) {
-    cartButtonElement.addEventListener('click', () => {
+    cartButtonElement.addEventListener('click', (event) => {
+      const currentCartButtonElement = event.target;
+      const currentConfirmationContentElement = event.target.parentNode.childNodes[7];
       const totalGrossAmount = calculateTotalGrossAmount();
       const totalIvaAmount = totalGrossAmount * 0.21;
       const sendCost = 1000;
       const totalNetAmount = totalGrossAmount + totalIvaAmount + sendCost;
+
       setInvoicingAmountsInDOM(totalGrossAmount, totalIvaAmount, sendCost, totalNetAmount);
+      
+      currentCartButtonElement.setAttribute('style', 'display:none');
+      currentConfirmationContentElement.setAttribute('style', 'display:flex');
     });
   }
 };
+
 
 const setQuantityInputEventListener = () => {
   const qtyInputElements = document.getElementsByClassName('quantity_field');
@@ -297,8 +344,14 @@ const setQuantityInputEventListener = () => {
   for(qtyInputElement of qtyInputElements) {
     qtyInputElement.addEventListener('change', (event) => {
       const quantityInputElement = event.target;
+      const addCartButtonElement = event.target.parentNode.parentNode.childNodes[6];
+      const confirmationContentElement = event.target.parentNode.parentNode.childNodes[7];
+
       validateQtyInputValue(quantityInputElement);
       updateSubtotal(quantityInputElement);
+
+      addCartButtonElement.setAttribute('style', 'display:inline-block');
+      confirmationContentElement.setAttribute('style', 'display:none');
     });
   }
 };
@@ -314,11 +367,3 @@ const setEventListenerInDOM = () => {
 const products = getProducts();
 createProductCardsInDOM(products);
 setEventListenerInDOM();
-//TODO another feature
-// TODO NEW FEATURE
-// TODO Ultima tarea
-// TODO Ultimos features
-// Last test
-// ultima prueba
-// more merge
-// mas merge
