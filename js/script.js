@@ -10,6 +10,33 @@ class Product {
   }
 }
 
+const sendCostByProvince = {
+  caba: '50.00',
+  buenosaires: '100.00',
+  catamarca: '200.00',
+  chaco: '200.00',
+  chubut: '400.00',
+  cordoba: '150.00',
+  corrientes: '200.00',
+  entrerios: '150.00',
+  formosa: '200.00',
+  jujuy: '400.00',
+  lapampa: '300.00',
+  larioja: '300.00',
+  mendoza: '400.00',
+  misiones: '400.00',
+  neuquen: '500.00',
+  rionegro: '500.00',
+  salta: '350.00',
+  sanjuan: '400.00',
+  sanluis: '400.00',
+  santacruz: '500.00',
+  santafe: '200.00',
+  santiagodelestero: '200.00',
+  tierradelfuego: '600.00',
+  tucuman: '300.00'
+};
+
 
 const productPurchases = {};
 
@@ -304,16 +331,27 @@ const setQuantityButtonsEventListener = () => {
 };
 
 
-const setInvoicingAmountsInDOM = (totalGrossAmount, totalIvaAmount, sendCost, totalNetAmount) => {
+const setInvoicingAmountsInDOM = (invoicingAmounts) => {
   const grossAmountElement = document.getElementsByClassName('subtotal_amount_field')[0];
   const ivaAmountElement = document.getElementsByClassName('tax_field')[0];
   const sendAmountElement = document.getElementsByClassName('send_field')[0];
   const netAmountElement = document.getElementsByClassName('total_field')[0];
 
-  grossAmountElement.innerHTML = `$${totalGrossAmount.toFixed(2)}`;
-  ivaAmountElement.innerHTML = `$${totalIvaAmount.toFixed(2)}`;
-  sendAmountElement.innerHTML = `$${sendCost.toFixed(2)}`;
-  netAmountElement.innerHTML = `$${totalNetAmount.toFixed(2)}`;
+  grossAmountElement.innerHTML = `$${invoicingAmounts.totalGrossAmount.toFixed(2)}`;
+  ivaAmountElement.innerHTML = `$${invoicingAmounts.totalIvaAmount.toFixed(2)}`;
+  sendAmountElement.innerHTML = `$${invoicingAmounts.sendCost}`;
+  netAmountElement.innerHTML = `$${invoicingAmounts.totalNetAmount.toFixed(2)}`;
+};
+
+
+const calculateInvoicingAmounts = () => {
+  const invoicingAmounts = {};
+  invoicingAmounts.totalGrossAmount = calculateTotalGrossAmount();
+  invoicingAmounts.totalIvaAmount = invoicingAmounts.totalGrossAmount * 0.21;
+  invoicingAmounts.sendCost = invoicingAmounts.totalGrossAmount == 0 ? '0.00' : getSendCost();
+  invoicingAmounts.totalNetAmount = invoicingAmounts.totalGrossAmount + invoicingAmounts.totalIvaAmount + parseFloat(invoicingAmounts.sendCost);
+
+  return invoicingAmounts;
 };
 
 
@@ -327,12 +365,8 @@ const setCartButtonEventListener = () => {
       const productCode = event.target.parentNode.childNodes[5].innerHTML;
       productPurchases[productCode].addedToCart = true;
 
-      const totalGrossAmount = calculateTotalGrossAmount();
-      const totalIvaAmount = totalGrossAmount * 0.21;
-      const sendCost = 1000;
-      const totalNetAmount = totalGrossAmount + totalIvaAmount + sendCost;
-
-      setInvoicingAmountsInDOM(totalGrossAmount, totalIvaAmount, sendCost, totalNetAmount);
+      const invoicingAmounts = calculateInvoicingAmounts();
+      setInvoicingAmountsInDOM(invoicingAmounts);
       
       currentCartButtonElement.setAttribute('style', 'display:none');
       currentConfirmationContentElement.setAttribute('style', 'display:flex');
@@ -360,10 +394,40 @@ const setQuantityInputEventListener = () => {
 };
 
 
+const getSendCost = () => {
+  const provinceInputElement = document.getElementById('province');
+  const provinceInputValue = provinceInputElement.value;
+
+  return sendCostByProvince[provinceInputValue];
+};
+
+
+const setProvinceSelectEventListener = () => {
+  const provinceInputElement = document.getElementById('province');
+
+  // Inicializo el costo de envío con la provincia seleccionada por defecto
+  const sendCostElement = document.getElementsByClassName('send_cost')[0];
+  sendCostElement.innerHTML = getSendCost();
+  
+  provinceInputElement.addEventListener('change', (event) => {
+    const sendCost = getSendCost();
+    const sendCostElement = document.getElementsByClassName('send_cost')[0]; // Elemento de la seccion envio
+    const grossAmountElement = document.getElementsByClassName('subtotal_amount_field')[0]; // Elemento de la seccion facturacion
+    sendCostElement.innerHTML = sendCost;
+
+    if (grossAmountElement.innerHTML != '$0.00') {
+      const invoicingAmounts = calculateInvoicingAmounts(); // Recalculamos el importe a pagar con el costo de envio nuevo segun pcia seleccionada
+      setInvoicingAmountsInDOM(invoicingAmounts);
+    }
+  });
+};
+
+
 const setEventListenerInDOM = () => {
   setQuantityButtonsEventListener();
   setQuantityInputEventListener();
   setCartButtonEventListener();
+  setProvinceSelectEventListener();
 };
 
 /************ PROGRAMA PRINCIPAL ************/
