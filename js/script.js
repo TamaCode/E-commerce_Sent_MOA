@@ -44,10 +44,11 @@ const getProducts = () => {
 // CALCULO EL MONTO BRUTO A PAGAR
 const calculateTotalGrossAmount = () => {
   let totalGrossAmount = 0;
-  const subtotalValues = JSON.parse(sessionStorage.getItem('productPurchases'));
 
-  for (const productCode in subtotalValues) {
-    totalGrossAmount += subtotalValues[productCode];
+  for (const productCode in productPurchases) {
+    if (productPurchases[productCode].addedToCart) {
+      totalGrossAmount += productPurchases[productCode].subtotalValue;
+    }
   }
 
   return totalGrossAmount;
@@ -236,8 +237,7 @@ const updateSubtotal = (quantityInputElement) => {
   const priceValue = getPriceValue(priceElement);
   const subtotalValue = quantityValue * priceValue;
 
-  productPurchases[productCode] = subtotalValue;
-  sessionStorage.setItem('productPurchases', JSON.stringify(productPurchases));
+  productPurchases[productCode] = {subtotalValue, addedToCart: false};
   
   subtotalElement.innerHTML = `Subtotal: $${subtotalValue}`;
 };
@@ -324,6 +324,9 @@ const setCartButtonEventListener = () => {
     cartButtonElement.addEventListener('click', (event) => {
       const currentCartButtonElement = event.target;
       const currentConfirmationContentElement = event.target.parentNode.childNodes[7];
+      const productCode = event.target.parentNode.childNodes[5].innerHTML;
+      productPurchases[productCode].addedToCart = true;
+
       const totalGrossAmount = calculateTotalGrossAmount();
       const totalIvaAmount = totalGrossAmount * 0.21;
       const sendCost = 1000;
