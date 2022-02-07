@@ -294,4 +294,28 @@ footer .copyright-content .registered_text {
   height: 100px;
 }
 
+.provincia_content {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-bottom: 1px dashed black;
+  margin: 0px 20%;
+  padding-bottom: 100px;
+}
+.provincia_content .select_content {
+  font-size: 20px;
+  margin: 50px 0px;
+}
+.provincia_content .send_cost_content {
+  color: #13915c;
+  font-size: 25px;
+  border: 5px solid #13915c;
+  border-radius: 50%;
+  padding: 20px;
+}
+.provincia_content .send_cost_content .send_cost {
+  font-weight: bolder;
+}
+
 /*# sourceMappingURL=style.css.map */
