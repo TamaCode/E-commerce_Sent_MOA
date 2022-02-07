@@ -361,15 +361,20 @@ const setCartButtonEventListener = () => {
   for(cartButtonElement of cartButtonElements) {
     cartButtonElement.addEventListener('click', (event) => {
       const currentCartButtonElement = event.target;
-      const currentConfirmationContentElement = event.target.parentNode.childNodes[7];
-      const productCode = event.target.parentNode.childNodes[5].innerHTML;
-      productPurchases[productCode].addedToCart = true;
+      const currentConfirmationContentElement = currentCartButtonElement.parentNode.childNodes[7];
+      const productCode = currentCartButtonElement.parentNode.childNodes[5].innerHTML;
 
-      const invoicingAmounts = calculateInvoicingAmounts();
-      setInvoicingAmountsInDOM(invoicingAmounts);
-      
-      currentCartButtonElement.setAttribute('style', 'display:none');
-      currentConfirmationContentElement.setAttribute('style', 'display:flex');
+      if (productPurchases[productCode]) {
+        productPurchases[productCode].addedToCart = true;
+
+        const invoicingAmounts = calculateInvoicingAmounts();
+        setInvoicingAmountsInDOM(invoicingAmounts);
+
+        currentCartButtonElement.setAttribute('style', 'display:none');
+        currentConfirmationContentElement.setAttribute('style', 'display:flex');
+      } else {
+        alert('Para poder agregar un producto al carrito debe al menos haber solicitado una unidad del mismo.');
+      }
     });
   }
 };
