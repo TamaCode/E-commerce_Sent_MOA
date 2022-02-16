@@ -436,9 +436,7 @@ const setEventListenerInDOM = () => {
 };
 
 /************ PROGRAMA PRINCIPAL ************/
-// Agrego comentario desde vs code
 const products = getProducts();
 createProductCardsInDOM(products);
 setEventListenerInDOM();
-// otro test desde git
 // test branch
