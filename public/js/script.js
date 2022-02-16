@@ -441,4 +441,5 @@ const products = getProducts();
 createProductCardsInDOM(products);
 setEventListenerInDOM();
 // cambio desde git2
+// cambio desde vs2
 // test branch
