@@ -440,4 +440,5 @@ const setEventListenerInDOM = () => {
 const products = getProducts();
 createProductCardsInDOM(products);
 setEventListenerInDOM();
+// agrego desde git3
 // test branch
