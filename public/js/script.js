@@ -440,4 +440,5 @@ const setEventListenerInDOM = () => {
 const products = getProducts();
 createProductCardsInDOM(products);
 setEventListenerInDOM();
+// cambio desde vs2
 // test branch
