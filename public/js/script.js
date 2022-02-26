@@ -401,29 +401,42 @@ const setQuantityInputEventListener = () => {
 
 const getSendCost = () => {
   const provinceInputElement = document.getElementById('province');
-  const provinceInputValue = provinceInputElement.value;
+  const provinceInputValue = provinceInputElement.value.replaceAll(' ', '');
 
   return sendCostByProvince[provinceInputValue];
 };
 
 
 const setProvinceSelectEventListener = () => {
-  const provinceInputElement = document.getElementById('province');
-
   // Inicializo el costo de envío con la provincia seleccionada por defecto
   const sendCostElement = document.getElementsByClassName('send_cost')[0];
   sendCostElement.innerHTML = getSendCost();
   
-  provinceInputElement.addEventListener('change', (event) => {
-    const sendCost = getSendCost();
-    const sendCostElement = document.getElementsByClassName('send_cost')[0]; // Elemento de la seccion envio
-    const grossAmountElement = document.getElementsByClassName('subtotal_amount_field')[0]; // Elemento de la seccion facturacion
-    sendCostElement.innerHTML = sendCost;
+  $('#province').change(() => {
+    const sendCostElement =  $('.send_cost')[0]; // Elemento de la seccion envio
+    const grossAmountElement = $('.subtotal_amount_field')[0]; // Elemento de la seccion facturacion
+    sendCostElement.innerHTML = getSendCost();
 
     if (grossAmountElement.innerHTML != '$0.00') {
       const invoicingAmounts = calculateInvoicingAmounts(); // Recalculamos el importe a pagar con el costo de envio nuevo segun pcia seleccionada
       setInvoicingAmountsInDOM(invoicingAmounts);
     }
+
+    const address = `${$('#province')[0].value}, Argentina`;
+    const url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + address + '.json?access_token=pk.eyJ1Ijoia2FybWF6IiwiYSI6ImNrYXZwYWk5YzFudWUycXBqMGpkajRkZ3MifQ.Zv32Z9pLzGC0Uf2ZFPZQlQ&limit=1'
+
+    $.get(url, (response, status) => {
+      if (status === 'success') {
+        const longitudeElement = $('.longitude')[0];
+        const latitudeElement = $('.latitude')[0];
+
+        longitudeElement.innerHTML = `Longitud: ${response.features[0].center[0]}`;
+        latitudeElement.innerHTML = `Latitud: ${response.features[0].center[1]}`;
+      } else {
+        longitudeElement.innerHTML = `Longitud: no se ha podido obtener la información.`;
+        latitudeElement.innerHTML = `Latitud: no se ha podido obtener la información.`;
+      }
+    });
   });
 };
 
@@ -435,7 +448,14 @@ const setEventListenerInDOM = () => {
   setProvinceSelectEventListener();
 };
 
+const setNavAnimations = () => {
+  $('nav').hide(0, () => {
+    $('nav').fadeIn(2000);
+  });
+};
+
 /************ PROGRAMA PRINCIPAL ************/
+setNavAnimations();
 const products = getProducts();
 createProductCardsInDOM(products);
 setEventListenerInDOM();
