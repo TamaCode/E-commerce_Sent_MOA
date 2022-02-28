@@ -219,7 +219,7 @@ footer .copyright-content .registered_text {
   transition: background 0s;
 }
 
-.invoice .amounts_content .amounts_content_2 .send_content, .invoice .amounts_content .amounts_content_2 .tax_content, .invoice .amounts_content .amounts_content_2 .subtotal_content {
+#invoice .amounts_content .amounts_content_2 .send_content, #invoice .amounts_content .amounts_content_2 .tax_content, #invoice .amounts_content .amounts_content_2 .subtotal_content {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -228,16 +228,16 @@ footer .copyright-content .registered_text {
   margin-bottom: 20px;
 }
 
-.invoice {
+#invoice {
   display: flex;
   flex-direction: column;
 }
-.invoice .amounts_content {
+#invoice .amounts_content {
   display: flex;
   flex-direction: row;
   justify-content: center;
 }
-.invoice .amounts_content button {
+#invoice .amounts_content button {
   color: white;
   font-family: "Courgette", cursive;
   font-size: 23px;
@@ -248,10 +248,10 @@ footer .copyright-content .registered_text {
   cursor: pointer;
   transition: all 0.5s;
 }
-.invoice .amounts_content button:hover {
+#invoice .amounts_content button:hover {
   transform: scale(1.2);
 }
-.invoice .amounts_content .amounts_content_2 {
+#invoice .amounts_content .amounts_content_2 {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -259,17 +259,17 @@ footer .copyright-content .registered_text {
   width: 40%;
   padding: 50px 50px;
 }
-.invoice .amounts_content .amounts_content_2 .send_content {
+#invoice .amounts_content .amounts_content_2 .send_content {
   border-bottom: 2.5px dashed black;
 }
-.invoice .amounts_content .amounts_content_2 .total_content {
+#invoice .amounts_content .amounts_content_2 .total_content {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   font-family: "Courgette", cursive;
   font-size: 28px;
 }
-.invoice .amounts_content .amounts_content_2 .payment_button {
+#invoice .amounts_content .amounts_content_2 .payment_button {
   display: flex;
   flex-direction: row;
   justify-content: center;
