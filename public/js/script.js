@@ -10,33 +10,6 @@ class Product {
   }
 }
 
-const sendCostByProvince = {
-  caba: '50.00',
-  buenosaires: '100.00',
-  catamarca: '200.00',
-  chaco: '200.00',
-  chubut: '400.00',
-  cordoba: '150.00',
-  corrientes: '200.00',
-  entrerios: '150.00',
-  formosa: '200.00',
-  jujuy: '400.00',
-  lapampa: '300.00',
-  larioja: '300.00',
-  mendoza: '400.00',
-  misiones: '400.00',
-  neuquen: '500.00',
-  rionegro: '500.00',
-  salta: '350.00',
-  sanjuan: '400.00',
-  sanluis: '400.00',
-  santacruz: '500.00',
-  santafe: '200.00',
-  santiagodelestero: '200.00',
-  tierradelfuego: '600.00',
-  tucuman: '300.00'
-};
-
 
 const productPurchases = {};
 
@@ -97,7 +70,7 @@ const createConfirmationContentElement = (currentCartButtonElement) => {
 
   const addedConfirmationTextElement = document.createElement('p');
   addedConfirmationTextElement.setAttribute('class', 'added_confirmation_text');
-  addedConfirmationTextElement.innerHTML = 'Producto Agregado!';
+  addedConfirmationTextElement.innerHTML = 'Carrito Actualizado!';
   addedConfirmationContentElement.appendChild(addedConfirmationTextElement);
 };
 
@@ -172,7 +145,7 @@ const setProductCardBody = (productCardElement, product) => {
 
   const cartButtonElement = document.createElement('button');
   cartButtonElement.setAttribute('class', 'add_cart_button');
-  cartButtonElement.innerHTML = 'Agregar al Carrito';
+  cartButtonElement.innerHTML = 'Actualizar Carrito';
   productCardBody.appendChild(cartButtonElement);
 
   createConfirmationContentElement(cartButtonElement);
@@ -337,18 +310,20 @@ const setInvoicingAmountsInDOM = (invoicingAmounts) => {
   const sendAmountElement = document.getElementsByClassName('send_field')[0];
   const netAmountElement = document.getElementsByClassName('total_field')[0];
 
-  grossAmountElement.innerHTML = `$${invoicingAmounts.totalGrossAmount.toFixed(2)}`;
-  ivaAmountElement.innerHTML = `$${invoicingAmounts.totalIvaAmount.toFixed(2)}`;
-  sendAmountElement.innerHTML = `$${invoicingAmounts.sendCost}`;
-  netAmountElement.innerHTML = `$${invoicingAmounts.totalNetAmount.toFixed(2)}`;
+  grossAmountElement.innerHTML = `$ ${invoicingAmounts.totalGrossAmount.toFixed(2)}`;
+  ivaAmountElement.innerHTML = `$ ${invoicingAmounts.totalIvaAmount.toFixed(2)}`;
+  sendAmountElement.innerHTML = `$ ${invoicingAmounts.sendCost}`;
+  netAmountElement.innerHTML = `$ ${invoicingAmounts.totalNetAmount.toFixed(2)}`;
 };
 
 
 const calculateInvoicingAmounts = () => {
   const invoicingAmounts = {};
+  const sendCostElement =  $('.send_cost')[0]; // Elemento de la seccion envio
+
   invoicingAmounts.totalGrossAmount = calculateTotalGrossAmount();
   invoicingAmounts.totalIvaAmount = invoicingAmounts.totalGrossAmount * 0.21;
-  invoicingAmounts.sendCost = invoicingAmounts.totalGrossAmount == 0 ? '0.00' : getSendCost();
+  invoicingAmounts.sendCost = invoicingAmounts.totalGrossAmount == 0 ? '0.00' : sendCostElement.innerHTML;
   invoicingAmounts.totalNetAmount = invoicingAmounts.totalGrossAmount + invoicingAmounts.totalIvaAmount + parseFloat(invoicingAmounts.sendCost);
 
   return invoicingAmounts;
@@ -399,44 +374,51 @@ const setQuantityInputEventListener = () => {
 };
 
 
-const getSendCost = () => {
-  const provinceInputElement = document.getElementById('province');
-  const provinceInputValue = provinceInputElement.value.replaceAll(' ', '');
+const setSendCost = () => {
+  const address = `${$('#province')[0].value}, Argentina`;
+  const url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + address + '.json?access_token=pk.eyJ1Ijoia2FybWF6IiwiYSI6ImNrYXZwYWk5YzFudWUycXBqMGpkajRkZ3MifQ.Zv32Z9pLzGC0Uf2ZFPZQlQ&limit=1';
 
-  return sendCostByProvince[provinceInputValue];
+  $.get(url, (response, status) => {
+    if (status === 'success') {
+      const sendCostElement =  $('.send_cost')[0]; // Elemento de la seccion envio
+      const grossAmountElement = $('.subtotal_amount_field')[0]; // Elemento de la seccion facturacion
+      const initialLocation = { latitude: -34.603139277380315, longitude: -58.420795157736855}; // Ubicacion de MOA (Av. Corrientes 4000, CABA)
+      const kmPrice = 3;
+      const finalLocation = { latitude: parseFloat(response.features[0].center[1]), longitude: parseFloat(response.features[0].center[0]) };
+
+      sendCostElement.innerHTML = calculateSendCost(initialLocation, finalLocation, kmPrice);
+
+      if (grossAmountElement.innerHTML != '$0.00') {
+        const invoicingAmounts = calculateInvoicingAmounts(); // Recalculamos el importe a pagar con el costo de envio nuevo segun pcia seleccionada
+        setInvoicingAmountsInDOM(invoicingAmounts);
+      }
+    } else {
+      sendCostElement.innerHTML = '0.00';
+      alert('Ups! No se ha podido calcular el Costo de Envío. Por favor comuníquese con nostros.');
+    }
+  });
 };
 
+const calculateSendCost = (initialLocation, finalLocation, kmPrice) => {
+  const x = finalLocation.latitude - initialLocation.latitude;
+  const y = finalLocation.longitude - initialLocation.longitude;
+  const latR = convertToRadians(x);
+  const lonR = convertToRadians(y);
+  const radio = 6371;
+
+  const a = Math.sin(latR / 2) * Math.sin(latR / 2) + Math.cos(convertToRadians(initialLocation.latitude)) * Math.cos(convertToRadians(finalLocation.latitude)) * Math.sin(lonR / 2) * Math.sin(lonR / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+  return (radio * c * kmPrice * 0.10).toFixed(2);
+};
+
+const convertToRadians = parameter => parameter * Math.PI / 180;
 
 const setProvinceSelectEventListener = () => {
-  // Inicializo el costo de envío con la provincia seleccionada por defecto
-  const sendCostElement = document.getElementsByClassName('send_cost')[0];
-  sendCostElement.innerHTML = getSendCost();
-  
+  setSendCost();
+
   $('#province').change(() => {
-    const sendCostElement =  $('.send_cost')[0]; // Elemento de la seccion envio
-    const grossAmountElement = $('.subtotal_amount_field')[0]; // Elemento de la seccion facturacion
-    sendCostElement.innerHTML = getSendCost();
-
-    if (grossAmountElement.innerHTML != '$0.00') {
-      const invoicingAmounts = calculateInvoicingAmounts(); // Recalculamos el importe a pagar con el costo de envio nuevo segun pcia seleccionada
-      setInvoicingAmountsInDOM(invoicingAmounts);
-    }
-
-    const address = `${$('#province')[0].value}, Argentina`;
-    const url = 'https://api.mapbox.com/geocoding/v5/mapbox.places/' + address + '.json?access_token=pk.eyJ1Ijoia2FybWF6IiwiYSI6ImNrYXZwYWk5YzFudWUycXBqMGpkajRkZ3MifQ.Zv32Z9pLzGC0Uf2ZFPZQlQ&limit=1'
-
-    $.get(url, (response, status) => {
-      if (status === 'success') {
-        const longitudeElement = $('.longitude')[0];
-        const latitudeElement = $('.latitude')[0];
-
-        longitudeElement.innerHTML = `Longitud: ${response.features[0].center[0]}`;
-        latitudeElement.innerHTML = `Latitud: ${response.features[0].center[1]}`;
-      } else {
-        longitudeElement.innerHTML = `Longitud: no se ha podido obtener la información.`;
-        latitudeElement.innerHTML = `Latitud: no se ha podido obtener la información.`;
-      }
-    });
+    setSendCost();
   });
 };
 
