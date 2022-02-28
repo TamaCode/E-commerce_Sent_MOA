@@ -145,7 +145,7 @@ const setProductCardBody = (productCardElement, product) => {
 
   const cartButtonElement = document.createElement('button');
   cartButtonElement.setAttribute('class', 'add_cart_button');
-  cartButtonElement.innerHTML = 'Actualizar Carrito';
+  cartButtonElement.innerHTML = 'Confirmar Producto';
   productCardBody.appendChild(cartButtonElement);
 
   createConfirmationContentElement(cartButtonElement);
