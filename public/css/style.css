@@ -294,6 +294,82 @@ footer .copyright-content .registered_text {
   height: 100px;
 }
 
+.contact {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.contact form {
+  color: white;
+  background: linear-gradient(to bottom, #019443, #008044);
+  font-family: "Courgette", cursive;
+  font-size: 20px;
+  margin-bottom: 100px;
+  width: 35%;
+  padding: 50px 50px;
+  border-radius: 100px;
+}
+@media only screen and (max-width: 589px) {
+  .contact form {
+    width: 100%;
+    height: auto;
+  }
+}
+.contact form a {
+  color: white;
+}
+.contact form h4 {
+  font-size: 40px;
+}
+.contact form button {
+  color: white;
+  font-family: "Courgette", cursive;
+  font-size: 30px;
+  background-color: #79c5a5;
+  border: 1px solid #13915c;
+  border-radius: 30px;
+  padding: 5px 10px;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+.contact form button:hover {
+  transform: scale(1.2);
+}
+
+.localization .localization-content {
+  color: #008044;
+  font-family: "Courgette", cursive;
+  padding: 30px 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+.localization .localization-content .localization-info {
+  text-align: center;
+  margin-right: 50px;
+}
+.localization .localization-content .localization-info h4 {
+  font-weight: 700;
+}
+.localization .localization-content .localization-info p {
+  font-weight: 100;
+  margin-bottom: 0px;
+}
+.localization .localization-content .localization-info .telephone-info {
+  margin: 50px 0px;
+}
+.localization .localization-content .localization-info .email-info {
+  margin-bottom: 30px;
+}
+.localization .localization-content .localization-map {
+  width: 60%;
+}
+.localization .localization-content .localization-map iframe {
+  width: 100%;
+}
+
 .provincia_content {
   margin-top: 30px;
   display: flex;

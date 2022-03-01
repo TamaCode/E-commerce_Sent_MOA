@@ -39,108 +39,96 @@
         <li><a href="index.html#header_content"><i class="fas fa-home"></i> Inicio</a></li>
         <li><a href="index.html#products"><i class="fas fa-soap"></i> Productos</a></li>
         <li><a href="index.html#invoice"><i class="fas fa-shopping-cart"></i> Carrito</a></li>
-        <li><a href="contact.html"><i class="fas fa-mobile"></i> Contacto</a></li>
+        <li><a href=""><i class="fas fa-mobile"></i> Contacto</a></li>
       </ul>
     </nav>
     
   </header>
 
-
-  <!-- SECCIÓN PRODUCTOS -->
-  <section id="products">
+  <section id="contact_title">
     <div class="subtitle_content">
       <div class="subtitle_image">
         <img src="images/logo.png" alt="">
       </div>
       <h4>Sentida Botánica</h4>
-      <h2>Conocé nuestros Productos y hacenos un Pedido!</h2>
+      <h2>Tu opinión nos importa, cuéntanos!</h2>
     </div>
   </section>
 
+   <!-- FORMULARIO DE CONTACTO -->
+   <section id="contact" class="contact">
 
-  <!-- SECCIÓN ENVIOS -->
-  <section id="sending">
+    <form class="row g-3 d-flex flex-column justify-content-center wow flipInY" data-wow-delay="0.2s">
+      <div class="col-12 d-flex justify-content-center">
+        <h4>SUGERENCIAS</h4>
+      </div>
+      <div class="col-md-12">
+        <label for="email" class="form-label">Email:</label>
+        <input type="email" class="form-control" name="mail" id="email">
+      </div>
+      <div class="col-md-12">
+        <label for="subject" class="form-label">Subject:</label>
+        <input type="text" class="form-control" name="asunto" id="subject">
+      </div>
+      <div class="col-12">
+        <label for="message" class="form-label">Message:</label>
+        <textarea class="form-control" name="mensaje" id="message" placeholder="Your message..." cols="30"
+          rows="10"></textarea>
+      </div>
+      <div class="col-12 d-flex justify-content-center">
+        <button type="submit">Send</button>
+      </div>
+      <div class="col-12 d-flex justify-content-center">
+        <p>
+          <a href="#">Terms and Conditions</a>
+        </p>
+      </div>
+    </form>
+  </section>
+  <!-- FIN FORMULARIO DE CONTACTO -->
+
+  <section id="localization_title">
     <div class="subtitle_content">
       <div class="subtitle_image">
         <img src="images/logo.png" alt="">
       </div>
       <h4>Sentida Botánica</h4>
-      <h2>Indicanos tu Provincia para calcular el Costo de Envío</h2>
-      <div class="provincia_content">
-        <div class="select_content">
-          <label for="province">Seleccione una Provincia:</label>
-          <select name="province" id="province">
-            <option value="ciudad autonoma de buenos aires">CABA</option>
-            <option value="buenos aires">Buenos Aires</option>
-            <option value="catamarca">Catamarca</option>
-            <option value="chaco">Chaco</option>
-            <option value="chubut">Chubut</option>
-            <option value="cordoba">Córdoba</option>
-            <option value="corrientes">Corrientes</option>
-            <option value="entre rios">Entre Ríos</option>
-            <option value="formosa">Formosa</option>
-            <option value="jujuy">Jujuy</option>
-            <option value="la pampa">La Pampa</option>
-            <option value="la rioja">La Rioja</option>
-            <option value="mendoza">Mendoza</option>
-            <option value="misiones">Misiones</option>
-            <option value="neuquen">Neuquén</option>
-            <option value="rio negro">Río Negro</option>
-            <option value="salta">Salta</option>
-            <option value="san juan">San Juan</option>
-            <option value="san luis">San Luis</option>
-            <option value="santa cruz">Santa Cruz</option>
-            <option value="santa fe">Santa Fe</option>
-            <option value="santiago del estero">Santiago del Estero</option>
-            <option value="tierra del fuego">Tierra del Fuego</option>
-            <option value="tucuman">Tucumán</option>
-          </select>
-        </div>
-       
-        <p class="send_cost_content">Costo de Envío: $ <span class="send_cost"></span></p>
-      </div>
+      <h2>Si tienes dudas contáctanos!</h2>
     </div>
   </section>
 
-
-  <!-- SECCIÓN FACTURACIÓN -->
-  <div id="invoice">
-    <div class="subtitle_content">
-      <div class="subtitle_image">
-        <img src="images/logo.png" alt="">
-      </div>
-      <h4>Sentida Botánica</h4>
-      <h2>Revisá el importe y confirmá tu pago!</h2>
-    </div>
-  
-    <div class="amounts_content">
-      <div class="amounts_content_2">
-        <div class="subtotal_content">
-          <p class="concept"><i>Subtotal:</i></p>
-          <p class="subtotal_amount_field amount">$ 0.00</p>
+  <!-- MAPA -->
+  <section class="localization">
+    <div class="localization-content">
+      <div class="localization-info">
+        <div class="address-info wow flipInY" data-wow-delay="0.2s">
+          <h4><i class="fas fa-map-marked-alt"></i> Address</h4>
+          <p>Av. Corrientes 4328</p>
+          <p>Almagro</p>
+          <p>CABA</p>
+          <p>Argentina</p>
         </div>
-        <div class="tax_content">
-          <p class="concept"><i>Impuestos:</i></p>
-          <p class="tax_field amount">$ 0.00</p>
+        <div class="telephone-info wow flipInY" data-wow-delay="0.2s">
+          <h4><i class="fas fa-phone-volume"></i> Contact Number</h4>
+          <p>Line one: 4-999-4545</p>
+          <p>Line two: 4-999-4646</p>
         </div>
-        <div class="send_content">
-          <p class="concept"><i>Envío:</i></p>
-          <p class="send_field amount">$ 0.00</p>
-        </div>
-        <div class="total_content">
-          <p class="concept"><b>Importe Total:</b></p>
-          <p class="total_field amount"><b>$ 0.00</b></p>
-        </div>
-        <div class="payment_button">
-          <a href="#"><button>Pagar</button></a>
+        <div class="email-info wow flipInY" data-wow-delay="0.2s">
+          <h4><i class="fas fa-envelope"></i> Email</h4>
+          <p>info@sentido-botanica.com</p>
         </div>
       </div>
+      <div class="localization-map">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.05344694285!2d-58.428236784263795!3d-34.60280998045969!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bcca65aa85edd3%3A0x24393affb2b97f2d!2sAv.%20Corrientes%204328%2C%20C1195AAP%20CABA!5e0!3m2!1ses!2sar!4v1631393466024!5m2!1ses!2sar"
+          width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+      </div>
     </div>
-  </div>
-  
+  </section>
+  <!-- FIN MAPA -->
 
-  <!-- FOOTER -->
-  <footer>
+   <!-- FOOTER -->
+   <footer>
     <div class="footer_links_content">
       <div class="img_footer_content">
         <img src="images/logo.png" alt="">
