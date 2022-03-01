@@ -16,21 +16,29 @@
     flex-direction: row;
     justify-content: center;
 
-    button {
-      color: white;
-      font-family: 'Courgette', cursive;
-      font-size: 23px;
-      background-color: rgb(19, 145, 92);
-      border: 1px solid rgb(19, 145, 92);
-      border-radius: 30px;
-      padding: 5px 10px;
-      cursor: pointer;
-      transition: all 0.5s;
+    .buttons {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-evenly;
+      padding: 100px 0px 0px 0px;
 
-      &:hover {
-        transform: scale(1.2);
+      button {
+        color: white;
+        font-family: 'Courgette', cursive;
+        font-size: 23px;
+        background-color: rgb(19, 145, 92);
+        border: 1px solid rgb(19, 145, 92);
+        border-radius: 30px;
+        padding: 5px 10px;
+        cursor: pointer;
+        transition: all 0.5s;
+  
+        &:hover {
+          transform: scale(1.2);
+        }
       }
     }
+    
 
     .amounts_content_2 {
       display: flex;

@@ -237,7 +237,13 @@ footer .copyright-content .registered_text {
   flex-direction: row;
   justify-content: center;
 }
-#invoice .amounts_content button {
+#invoice .amounts_content .buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  padding: 100px 0px 0px 0px;
+}
+#invoice .amounts_content .buttons button {
   color: white;
   font-family: "Courgette", cursive;
   font-size: 23px;
@@ -248,7 +254,7 @@ footer .copyright-content .registered_text {
   cursor: pointer;
   transition: all 0.5s;
 }
-#invoice .amounts_content button:hover {
+#invoice .amounts_content .buttons button:hover {
   transform: scale(1.2);
 }
 #invoice .amounts_content .amounts_content_2 {
