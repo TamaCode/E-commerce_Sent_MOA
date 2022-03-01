@@ -435,7 +435,6 @@ const setPaymentButtonEventListener = () => {
 
 const setFormButtonEventListener = () => {
   $('#send_button').click(() => {
-    console.log($('#email'))
     const userEmail = $('#email')[0].value;
     alert(`Muchas gracias por enviarnos tu Sugerencia!\nSi es necesario nos pondremos en contacto con usted a la casilla de correo ingresada: ${userEmail}`);
   });
@@ -462,7 +461,6 @@ const setNavAnimations = () => {
 
 /************ PROGRAMA PRINCIPAL ************/
 const currentURL = window.location.href;
-console.log('currentUrl', currentURL);
 setNavAnimations();
 
 if (currentURL.includes('index.html')) {
