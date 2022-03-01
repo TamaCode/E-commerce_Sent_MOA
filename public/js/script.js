@@ -424,9 +424,12 @@ const setProvinceSelectEventListener = () => {
 
 const setPaymentButtonEventListener = () => {
   $('#payment_button').click(() => {
-    const userEmail = prompt('Por favor, ingrese su email:');
-    sessionStorage.setItem('userEmail', userEmail);
-    alert(`Su pedido fue confirmado. Se enviará un email a la casilla de correo ${sessionStorage.getItem('userEmail')} para ultimar detalles del pago.\n Muchas gracias por elegirnos!`)
+    let userEmail = prompt('Por favor, ingrese su email:');
+
+    if (userEmail) {
+      sessionStorage.setItem('userEmail', userEmail);
+      alert(`Su pedido fue confirmado. Se enviará un email a la casilla de correo ${sessionStorage.getItem('userEmail')} para ultimar detalles del pago.\n Muchas gracias por elegirnos!`);
+    }
   });
 };
 
