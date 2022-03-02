@@ -469,6 +469,3 @@ if (currentURL.includes('index.html')) {
 } else {
   setEventListenerInContactDOM();
 }
-
-
-
