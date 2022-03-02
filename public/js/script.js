@@ -428,7 +428,7 @@ const setPaymentButtonEventListener = () => {
 
     if (userEmail) {
       sessionStorage.setItem('userEmail', userEmail);
-      alert(`Su pedido fue confirmado. Se enviará un email a la casilla de correo "${sessionStorage.getItem('userEmail')}" para ultimar detalles del pago.\n Muchas gracias por elegirnos!`);
+      alert(`Su pedido fue confirmado. Se enviará un email a la casilla de correo "${sessionStorage.getItem('userEmail')}" para ultimar detalles del pago.\nMuchas gracias por elegirnos!`);
     }
   });
 };
