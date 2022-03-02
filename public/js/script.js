@@ -35,7 +35,6 @@ const getProducts = () => {
   products.push(new Product('7', 'Jabonera de Madera', 400));
   products.push(new Product('8', 'Bálsamo Mentolado', 300));
   
-  // products.sort((productA, productB) => productA.code - productB.code); // ORDENO ARRAY DE PRODUCTOS SEGÚN EL CÓDIGO DE LOS MISMOS
   calculateProductIvaAmounts(products);
 
   return products;
